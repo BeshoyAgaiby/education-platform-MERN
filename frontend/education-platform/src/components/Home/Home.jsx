@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import Hero from "./hero";
 import QuickStats from "./QuickStats";
-import ShowDetails from "./showDetails";
+import ShowDetails from "./ShowDetails";
 
 export default function Home() {
   return <>
