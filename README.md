@@ -9,12 +9,17 @@ The platform provides a simple and organized system for managing students, lectu
 ## 🌐 Live Demo
 
 **Frontend:**  
-[Live Demo](YOUR_FRONTEND_URL)
+[Live Demo](https://education-platform-mern-eight.vercel.app/)
 
 **GitHub:**  
 [Source Code](https://github.com/BeshoyAgaiby/education-platform-MERN.git)
 
 ---
+## for test 
+
+studentcode: ST010
+admin : email:beshoy@gmail.com
+password:beshoy11
 
 ## 📌 Project Overview
 
