@@ -1,24 +1,28 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { lazy, Suspense } from "react";
+import Loading from "./components/Loading/Loading";
+
 import Layout from "./components/Layout/Layout";
 import Notfound from "./components/Notfound/Notfound";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import AdminLayout from "./components/AdminLayout/AdminLayout";
-import Home from "./components/Home/Home";
-import Contact from "./components/Contact/Contact";
-import Login from "./components/Login/Login";
-import AdminLogin from "./components/Login/AdminLogin";
-import Dashboard from "./components/Dashboard/Dashboard";
-import Lectures from "./components/Lectures/Lectures";
-import LectureDetails from "./components/LectureDetails/LectureDetails";
-import Attendance from "./components/Attendance/Attendance";
-import Exams from "./components/Exams/Exams";
-import ExamDetails from "./components/ExamDetails/ExamDetails";
-import UserController from "./components/Dashboard/userController";
-import StudentDetails from "./components/StudentDetails/StudentDetails";
-import ExamsController from "./components/Dashboard/ExamsController";
-import AttendanceController from "./components/Dashboard/AttendanceController";
-import LectureController from "./components/Dashboard/LectureController";
-import SingleAttendanceForAdmin from "./components/SingleAttendanceForAdmin/SingleAttendanceForAdmin";
+
+const Home =lazy(()=>import("./components/Home/Home"));
+const Contact =lazy(()=>import("./components/Contact/Contact"));
+const Login =lazy(()=>import("./components/Login/Login"));
+const AdminLogin =lazy(()=>import("./components/Login/AdminLogin"));
+const Dashboard =lazy(()=>import("./components/Dashboard/Dashboard"));
+const Lectures =lazy(()=>import("./components/Lectures/Lectures"));
+const LectureDetails =lazy(()=>import("./components/LectureDetails/LectureDetails"));
+const Attendance =lazy(()=>import("./components/Attendance/Attendance"));
+const Exams = lazy(()=>import("./components/Exams/Exams"));
+const ExamDetails =lazy(()=>import("./components/ExamDetails/ExamDetails"));
+const UserController = lazy(()=>import("./components/Dashboard/userController"));
+const StudentDetails = lazy(()=>import("./components/StudentDetails/StudentDetails"));
+const ExamsController =lazy(()=>import("./components/Dashboard/ExamsController"));
+const AttendanceController = lazy(()=>import("./components/Dashboard/AttendanceController"));
+const LectureController = lazy(()=>import("./components/Dashboard/LectureController"));
+const SingleAttendanceForAdmin =lazy(()=>import("./components/SingleAttendanceForAdmin/SingleAttendanceForAdmin"));
 import {AppContextProvider} from "./context/AppContext"
 import { AuthContextProvider } from "./context/AuthContext";
 import { AdminContextProvider } from "./context/AdminContext";
@@ -67,7 +71,9 @@ export default function App() {
    <AdminContextProvider>
     <AppContextProvider>
         <Toaster/>
-        <RouterProvider router={router} />
+        <Suspense fallback={<Loading />}>
+          <RouterProvider router={router} />
+        </Suspense>
     </AppContextProvider>
    </AdminContextProvider>
   </AuthContextProvider>

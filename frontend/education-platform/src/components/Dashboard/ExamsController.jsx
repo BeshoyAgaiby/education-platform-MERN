@@ -7,11 +7,13 @@ import Modal from "../Modal/Modal";
 import ExamForm from "../forms/ExamForm";
 import CheckDelete from "../forms/CheckDelete";
 import { Helmet } from "react-helmet-async";
+import Loading from "../Loading/Loading";
 
 export default function ExamController() {
   const navigate = useNavigate();
 
   const {exams,getExams,} = useContext(AppContext);
+  const [loading, setLoading] = useState(true);
 
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
   const [selectedExam, setSelectedExam] = useState(null);
@@ -21,7 +23,13 @@ export default function ExamController() {
 
  
   useEffect(() => {
-    getExams();
+    const getData = async () => {
+      setLoading(true);
+      await getExams();
+      setLoading(false);
+    };
+
+    getData();
   }, []);
 
   const openAddModal = () => {
@@ -90,7 +98,9 @@ export default function ExamController() {
             </h2>
           </div>
 
-          {exams?.length === 0 ? (
+          {loading ? (
+            <Loading />
+          ) : exams?.length === 0 ? (
 
             <div className="p-8 text-center text-sm text-gray-500">
               لا يوجد امتحانات حاليًا

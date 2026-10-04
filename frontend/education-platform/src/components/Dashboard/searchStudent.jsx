@@ -42,7 +42,7 @@ export default function SearchStudent() {
           {loading ? "جاري البحث..." : "بحث"}
           </button>
       </div>
-      {searched && search.length === 0 && (
+      {searched &&  !loading && search.length === 0 && (
         <div className="mt-6 rounded-xl bg-red-50 p-4 text-center">
              <p className="text-sm font-medium text-red-600">
                 لا يوجد طالب بهذا الاسم أو الكود

@@ -5,16 +5,22 @@ import { AdminContext } from "../../context/AdminContext";
 import Modal from "../Modal/Modal";
 import AttendanceForm from "../forms/AttendanceForm";
 import { Helmet } from "react-helmet-async";
-
+import Loading from "../Loading/Loading";
 export default function AttendanceController() {
   const {attends,getAllAttendance,} = useContext(AdminContext);
+    const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
 
   useEffect(() => {
-    getAllAttendance();
+    const getData = async () => {
+      setLoading(true);
+      await getAllAttendance();
+      setLoading(false);
+    } 
+    getData();
   }, []);
 
   const students = [
@@ -66,7 +72,9 @@ export default function AttendanceController() {
 
         </div>
 
-        {students.length === 0 ? (
+       {loading ? (
+          <Loading />
+      ):students.length === 0 ? (
           <div className="rounded-2xl bg-white p-8 text-center shadow-sm">
             <p className="text-gray-500">
               لا يوجد سجلات حضور حتى الآن

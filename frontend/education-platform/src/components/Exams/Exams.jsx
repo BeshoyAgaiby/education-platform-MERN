@@ -1,14 +1,23 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AppContext } from "../../context/AppContext";
 import { FaCalendarDays, FaArrowRight } from "react-icons/fa6";
 import { Helmet } from "react-helmet-async";
+import Loading from "../Loading/Loading";
 
 export default function Exams() {
   const { getExams, exams } = useContext(AppContext);
+    const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
-    getExams();
+    const getData = async () => {
+      setLoading(true);
+      await getExams();
+      setLoading(false);
+    };
+
+    getData();
   }, []);
 
   return (
@@ -40,8 +49,10 @@ export default function Exams() {
 
           <p className="mt-2 text-sm text-gray-500">جميع الامتحانات المتاحة</p>
         </div>
-
-        {exams.length === 0 ? (
+        
+          {loading ? (
+            <Loading />
+          ):exams.length === 0 ? (
           <div className="rounded-2xl bg-white p-8 text-center text-gray-500 shadow-sm">
             لا توجد امتحانات متاحة حاليًا
           </div>

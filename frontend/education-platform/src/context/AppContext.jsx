@@ -2,19 +2,18 @@ import axios from "axios";
 import { createContext, useState } from "react";
 // eslint-disable-next-line react-refresh/only-export-components
 export const AppContext = createContext();
-const token = localStorage.getItem("token");
 
 export function AppContextProvider({ children }) {
+  const token = localStorage.getItem("token");
+  const headers = {
+    token: token,
+  };
   const [lectures, setLectures] = useState([]);
   const [lecture, setLecture] = useState(null);
   const [exams, setExams] = useState([]);
   const [exam, setExam] = useState(null);
   const [attendance, setAttendance] = useState([]);
-  const [attendanceStats, setAttendanceStats] = useState(null);
-
-  const headers = {
-    token: token,
-  };
+  const [attendanceStats, setAttendanceStats] = useState(null); 
 
 const getLectures=async()=>{
   try{

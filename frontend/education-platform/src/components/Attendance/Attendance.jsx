@@ -1,14 +1,21 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AppContext } from "../../context/AppContext";
 import {FaArrowRight,FaCheck,FaXmark,FaCalendarDays,} from "react-icons/fa6";
 import { Helmet } from "react-helmet-async";
+import Loading from "../Loading/Loading";
 
 export default function Attendance() {
   const {attendance,attendanceStats,getMyAttendance,} = useContext(AppContext);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getMyAttendance();
+    const getData=async()=>{
+      setLoading(true)
+    await getMyAttendance();
+     setLoading(false)
+    }
+    getData();
   }, []);
 
   return (
@@ -105,7 +112,9 @@ export default function Attendance() {
             </h2>
           </div>
 
-          {attendance.length === 0 ? (
+        {loading ? (
+         <Loading />
+        ):attendance.length === 0 ? (
             <div className="p-8 text-center text-sm text-gray-500">
               لا توجد بيانات حضور حاليًا
             </div>
@@ -178,7 +187,6 @@ export default function Attendance() {
         </div>
       </div>
     </section>
-
   </>
   );
 }

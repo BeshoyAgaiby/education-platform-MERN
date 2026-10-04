@@ -6,17 +6,25 @@ import StudentForm from "../forms/StudentForm";
 import CheckDelete from "../forms/CheckDelete";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import Loading from "../Loading/Loading";
 
 export default function UserController() {
   const navigate = useNavigate();
   const { users, getUsers } = useContext(AdminContext);
+    const [loading, setLoading] = useState(true);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [studentToDelete, setStudentToDelete] = useState(null);
   useEffect(() => {
-    getUsers();
+    const getData = async () => {
+      setLoading(true);
+      await getUsers();
+      setLoading(false);
+    };
+
+    getData();
   }, []);
 
   const openAddModal = () => {
@@ -80,7 +88,9 @@ export default function UserController() {
             </h2>
           </div>
 
-          {users?.length === 0 ? (
+          {loading ? (
+            <Loading />
+           ):users?.length === 0 ? (
             <div className="p-8 text-center text-sm text-gray-500">
               لا يوجد طلاب حاليًا
             </div>

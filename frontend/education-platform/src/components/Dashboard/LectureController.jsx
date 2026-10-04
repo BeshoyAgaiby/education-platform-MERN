@@ -6,11 +6,13 @@ import LectureForm from "../forms/LectureForm";
 import CheckDelete from "../forms/CheckDelete";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import Loading from "../Loading/Loading";
 
 export default function LectureController() {
   const navigate =useNavigate();
   const {lectures,getLectures} = useContext(AppContext);
-   
+     const [loading, setLoading] = useState(true);
+
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
   const [selectedLecture, setSelectedLecture] = useState(null);
 
@@ -18,7 +20,13 @@ export default function LectureController() {
   const [lectureToDelete, setLectureToDelete] = useState(null);
 
   useEffect(() => {
-    getLectures();
+    const getData = async () => {
+      setLoading(true);
+      await getLectures();
+      setLoading(false);
+    };
+
+    getData();
   }, []);
 
   const openAddModal = () => {
@@ -86,11 +94,13 @@ export default function LectureController() {
             </h2>
           </div>
 
-          {lectures?.length === 0 ? (
+          {loading ? (
+            <Loading />
+         ):lectures?.length === 0 ? (
             <div className="p-8 text-center text-sm text-gray-500">
               لا يوجد محاضرات حاليًا
             </div>
-          ) : (
+           ) : (
             <div className="overflow-x-auto">
 
               <table className="w-full min-w-[900px] text-right">

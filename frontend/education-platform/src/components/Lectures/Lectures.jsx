@@ -1,13 +1,20 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect,useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import {FaBookOpen,FaCalendarDays,FaDownload,} from "react-icons/fa6";
 import { Helmet } from "react-helmet-async";
+import Loading from "../Loading/Loading";
 
 export default function Lectures() {
   const { lectures, getLectures } = useContext(AppContext);
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    getLectures();
+    const getData = async () => {
+    setLoading(true);
+    await getLectures();
+    setLoading(false);
+  };
+
+  getData();
   }, []);
 
   return (
@@ -30,7 +37,9 @@ export default function Lectures() {
           </p>
         </div>
 
-        {lectures.length === 0 ? (
+        {loading ? (
+          <Loading />
+        ) : lectures.length === 0 ? (
           <div className="rounded-2xl bg-white p-8 text-center text-gray-500">
             لا توجد محاضرات متاحة حاليًا
           </div>

@@ -18,8 +18,8 @@ The platform provides a simple and organized system for managing students, lectu
 ## for test 
 
 studentcode: ST010
-admin : email:beshoy@gmail.com
-password:beshoy11
+admin : email:*****@gmail.com
+password:letter+numbers
 
 ## 📌 Project Overview
 
