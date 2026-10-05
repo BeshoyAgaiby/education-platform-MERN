@@ -20,6 +20,7 @@ export default function Login() {
 
     onSubmit: async (values, { setSubmitting, setErrors }) => {
       try {
+        console.log("API URL:", import.meta.env.VITE_API_URL);
         const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/users/access`,values);        
         login(data.student,data.token);
         navigate("/home");

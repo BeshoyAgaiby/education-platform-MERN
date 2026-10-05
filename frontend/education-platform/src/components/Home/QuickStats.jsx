@@ -1,8 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
-import { FaBookOpen, FaClipboardCheck } from "react-icons/fa6";
+import { FaBookOpen, FaClipboardCheck, FaSpinner } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import Loading from "../Loading/Loading";
 
 export default function QuickStats() {
   const {getLectures,lectures,getExams,exams,} = useContext(AppContext);
@@ -40,7 +39,7 @@ export default function QuickStats() {
           </p>
 
           <p className="mt-1 text-2xl font-bold text-gray-800">
-            {loading ? <Loading/> : lectures.length}
+            {loading ?<FaSpinner className="animate-spin text-2xl text-blue-600" /> : lectures.length}
           </p>
 
           <Link
@@ -61,7 +60,7 @@ export default function QuickStats() {
           </p>
 
           <p className="mt-1 text-2xl font-bold text-gray-800">
-            {loading ? <Loading/> : exams.length}
+            {loading ? <FaSpinner className="animate-spin text-2xl text-blue-600" /> : exams.length}
           </p>
 
           <Link
