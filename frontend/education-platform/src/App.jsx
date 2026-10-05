@@ -27,6 +27,7 @@ import {AppContextProvider} from "./context/AppContext"
 import { AuthContextProvider } from "./context/AuthContext";
 import { AdminContextProvider } from "./context/AdminContext";
 import { Toaster } from "react-hot-toast";
+import InstallPWA from "./components/InstallPWA/InstallPWA";
 
 let router = createBrowserRouter([
 
@@ -71,6 +72,9 @@ export default function App() {
    <AdminContextProvider>
     <AppContextProvider>
         <Toaster/>
+        
+         <InstallPWA />
+
         <Suspense fallback={<Loading />}>
           <RouterProvider router={router} />
         </Suspense>
